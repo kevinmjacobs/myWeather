@@ -1,18 +1,16 @@
 import React from 'react';
 
-class User extends React.Componet {
+class User extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      user: ''
-    };
+      user: props.user
+    }
   }
 
   render() {
-    return (
-      <div>
-        Here is your user
-      </div>
+    return(
+      <div>User: {this.state.user}</div>
     )
   }
 }

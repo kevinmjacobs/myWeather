@@ -1,18 +1,18 @@
 import React from 'react';
 
-class Forecast extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+import ForecastDay from './ForecastDay.jsx'
 
-  render() {
-    return (
+const Forecast = (props) => {
+  return (
+    <div>
+      Locations: 
       <div>
-        Here are your locsation
+        {props.locations.map((location, index) => {
+          return <ForecastDay location={location} index={index} key={index} />
+        })}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Forecast;

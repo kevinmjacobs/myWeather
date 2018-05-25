@@ -1,28 +1,30 @@
 //import libraries and components
 import React from 'react';
 
-// import Forecast from './Forecast';
-// import Search from './Search';
+import Forecast from './Forecast.jsx';
+import Search from './Search.jsx';
 import User from './User.jsx';
 
 class App extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      locations: []
-    }
+      locations: ['Los Angeles', 'San Francisco', 'San Diego'],
+      user: 'Kevin',
+      search: 'cities'
+    };
   }
 
   render() {
     return (
       <div>
-        Here is your app
-        {/* <User user={this.state.user}/> */}
-        {/* <Search searchItem={this.state.search}/>
-        <Forecast forecasts={this.state.location}/> */}
+        <User user={this.state.user}/>
+        <Search search={this.state.search}/>
+        <Forecast locations={this.state.locations} />
       </div>
     )
   }
 
 }
+
 export default App;
