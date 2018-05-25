@@ -18,13 +18,8 @@ app.use(parser.json());
 app.use(parser.urlencoded( { extended: true } ));
 app.use(express.static(path.join(__dirname,'../client/dist')));
 
-
+//route requests to router
 app.use('/', routes);
-
-//handle requests to app
-// app.get('/', (req, res) => {
-//   res.send();
-// });
 
 //load server on PORT
 app.listen(PORT, () => console.log(`Listening on PORT:${PORT}`));

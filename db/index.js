@@ -31,4 +31,16 @@ City.hasMany(Forecast, {foreignKey: 'city_id'});
 Forecast.belongsTo(City, {foreignKey: 'city_id'});
 
 sequelize.sync()
-  .then((() => console.log('database synced')));
+  .then(() => {
+    console.log('database synced');
+    // User
+    //   .build( { username: 'thismax' } )
+    //   .save()
+    //   .then(() => console.log('user generated on sync'))
+    //   .catch((err) => console.log('error generating user',err.message));
+  });
+
+  
+module.exports.User = User;
+module.exports.City = City;
+module.exports.Forecast = Forecast;
