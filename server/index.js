@@ -1,8 +1,12 @@
 //require server libraries
 const express = require('express');
-const path = require('path');
-const parser = require('body-parser');
 const helmet = require('helmet');
+const parser = require('body-parser');
+const path = require('path');
+const session = require('express-session');
+const db = require('../db');
+
+const routes = require('../server/routers/routes');
 
 //initialize express app
 const app = express();
@@ -14,9 +18,14 @@ app.use(parser.json());
 app.use(parser.urlencoded( { extended: true } ));
 app.use(express.static(path.join(__dirname,'../client/dist')));
 
-app.get('/', (req, res) => {
-  res.send();
-});
 
+app.use('/', routes);
+
+//handle requests to app
+// app.get('/', (req, res) => {
+//   res.send();
+// });
+
+//load server on PORT
 app.listen(PORT, () => console.log(`Listening on PORT:${PORT}`));
 
