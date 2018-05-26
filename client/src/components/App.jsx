@@ -1,5 +1,6 @@
 //import libraries and components
 import React from 'react';
+import axios from 'axios';
 
 import Forecast from './Forecast.jsx';
 import Search from './Search.jsx';
@@ -9,7 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locations: ['Los Angeles', 'San Francisco', 'San Diego'],
+      locations: [],
       user: 'kevinmjacobs',
       search: 'cities'
     };
@@ -20,8 +21,20 @@ class App extends React.Component {
   }
 
   fetchWeather() {
-    fetch('http://localhost:1337/weather')
-      .then((response) => console.log(response))
+    let user = this.state.user;
+    axios.get('/weather', {
+      params: {
+        user: user
+      }
+    })
+      .then((response) => {
+        console.log('received response from fetch weather');
+        let results = response.data;
+        console.log(results);
+        this.setState({
+          locations: [...this.state.locations, ...results]
+        })
+      })
       .catch((err) => console.log('error fetching weather data', err));
   }
 
