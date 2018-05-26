@@ -36,7 +36,7 @@ module.exports = {
         console.log('GET weather error', err);
         res.send(err).status(404);
       } else {
-        console.log('GET weather successful');
+        console.log('GET weather successful', data[0]);
         res.send(data).status(200);
       }
     })
