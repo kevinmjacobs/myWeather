@@ -10,11 +10,11 @@ module.exports = {
         res.send().status(404);
       }
       console.log('POST weather successful');
-      res.send(data).status(200);
+      res.send('Successfully posted weather data').status(200);
     })
   }),
   get: ((req, res) => {
-    const location = 'Los Angeles';
+    const location = 'Los Angeles, CA';
     const user = 'kevinmjacobs';
     weather.get(user, location, (err, data) => {
       if (err) {
