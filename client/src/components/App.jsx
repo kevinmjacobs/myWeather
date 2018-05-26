@@ -11,15 +11,45 @@ class App extends React.Component {
     super(props);
     this.state = {
       locations: [],
-      user: 'kjacobs',
-      search: 'cities'
+      user: '',
+      search: ''
     };
 
+    this.setSearch = this.setSearch.bind(this);
     this.setUser = this.setUser.bind(this);
+    this.callCallback = this.callCallback.bind(this);
+    // this.fetchWeather = this.fetchWeather.bind(this);
   }
+
 
   componentDidMount() {
     this.fetchCities();
+  }
+  
+  setSearch(term) {
+    this.setState({
+      search: term,
+      locations: [...this.state.locations, term]
+    }
+      , () => this.addCity()
+    );
+  }
+
+  addUser() {
+    let user = this.state.user
+    axios.post('/users', {
+      params: {
+        user: user
+      }
+    })
+      .then((response) => {
+        console.log('received response from fetch weather');
+        // this.setState({
+        //   forecasts: results
+        // })
+        this.fetchCities();
+      })
+      .catch((err) => console.log('error fetching weather data', err));
   }
 
   setUser(user) {
@@ -27,8 +57,26 @@ class App extends React.Component {
     this.setState({
       user: user
     }, () => {
-      this.fetchCities();
+      this.addUser();
     })
+  }
+
+  callCallback(cb) {
+    cb();
+  }
+
+  addCity() {
+    let location = this.state.search;
+    axios.post('/weather', {
+      params: {
+        location: location
+      }
+    })
+    .then((response) => {
+      console.log('received response from add city');
+    })
+    .then(() => this.fetchCities())
+    .catch((err) => console.log('error fetching city data', err));
   }
 
   fetchCities() {
@@ -41,27 +89,21 @@ class App extends React.Component {
       .then((response) => {
         console.log('received response from fetch cities');
         let results = response.data;
-        console.log('results from response');
         this.setState({
           locations: results
         })
       })
-      .then(() => console.log('locations after set state'))
       .catch((err) => console.log('error fetching city data', err));
   }
 
   render() {
     return (
       <div>
-        <User setUser={this.setUser}/>
-        <Search search={this.state.search}/>
-        <table>
-          <tr>
-            <th>Cities</th>
-          </tr>
+        <div><User setUser={this.setUser}/> <Search setSearch={this.setSearch}/></div>
+        <table id="weatherTable">
           <tr>
             {this.state.locations.map((location, index) => (
-              <City location={location} index={index} key={index} />
+              <City callCallback={this.callCallback} location={location} index={index} key={index} />
             ))}
           </tr>
         </table>

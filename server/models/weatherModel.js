@@ -13,7 +13,20 @@ module.exports = {
           callback(err, null);
         } else {
           console.log('POST MODEL successful');
-          City.findOne( { where: { name: location} } )
+          City.findOne( 
+            { 
+              where: { name: location} ,
+              include: [
+                {
+                  model: User,
+                  required: true,
+                  where: {
+                    username: user
+                  }
+                }
+              ]
+            } 
+          )
             .then((results) => {
               if (results) {
                 //update forecast table for city
@@ -41,43 +54,49 @@ module.exports = {
   
               } else {
                 //create record in cities for city and user
-                new City({
-                  name: location,
-                  zip: '90027',
-                  user_id: user
-                })
-                .save()
-                .then(() => {
-                  content.forEach((day) => {
-                    new Forecast({
-                      date: new Date(day.time),
-                      high: day.temperatureHigh,
-                      low: day.temperatureLow,
-                      precipType: day.precipType,
-                      precipProb: day.precipProb,
-                      humidity: day.humidity,
-                      windSpeed: day.windSpeed,
-                      city_id: city_id
+                User.findOne({ where: { username: user } })
+                .then((results) => {
+                  console.log('user find one results',results.dataValues);
+                  new City({
+                    name: location,
+                    user_id: results.dataValues.id
+                  })
+                  .save()
+                  .then((response) => {
+                    content.forEach((day) => {
+                      new Forecast({
+                        date: new Date(day.time*1000),
+                        high: day.temperatureHigh,
+                        low: day.temperatureLow,
+                        precipType: day.precipType,
+                        precipProb: day.precipProb,
+                        humidity: day.humidity,
+                        windSpeed: day.windSpeed,
+                        city_id: response.dataValues.id
+                      })
+                      .save()
+                      .then(() => {
+                        console.log('Found city from query');
+                        callback(null, content);
+                      })
+                      .catch((err) => {
+                        console.log('POST error', err)
+                        callback(err, null);
+                      })
                     })
-                    .save()
-                    .then(() => console.log('forecast generated'))
-                    .catch((err) => console.log('error generating forecast',err.message));
+                  })
+                  .catch((err) => {
+                    console.log('POST error', err)
+                    callback(err, null)
                   })
                 })
               }
             })
-            .then(() => {
-              console.log('Found city from query');
-              callback(null, content);
-            })
-            .catch((err) => {
-              console.log('POST ')
-              callback(err, null);
-            })
-        }
+          }
+        })
       })
-    });
-  }),
+    }),
+      
   // get: ((user, location, callback) => {
   //   City.findOne({
   //     where: { name: location },

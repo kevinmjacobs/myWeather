@@ -4,14 +4,27 @@ class Search extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      search: props.search
+      term: ''
     }
+    this.setSearch = props.setSearch;
+  }
+
+  searchCity(city) {
+    this.setSearch(city);
+  }
+
+  onChange(e) {
+    this.setState({
+      term: e.target.value
+    })
   }
 
   render() {
     return (
       <div>
-        Search: {this.state.search}
+        Add a city {this.state.search}
+        <input type='text' onKeyUp={(e) => this.onChange(e)} />
+        <button onClick={(e) => this.searchCity(this.state.term)}>Enter</button>
       </div>
     )
   }

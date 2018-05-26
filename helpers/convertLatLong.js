@@ -7,9 +7,12 @@ const convertLatLong = (location, callback) => {
       console.log('Not a valid city/state', err.message);
     } else {
       if (data.status !== 'ZERO_RESULTS') {
+        console.log(data);
         let coordinates = {
-          lat: data.results[0].geometry.location.lat,
-          long: data.results[0].geometry.location.lng
+          // lat: data.results[0].geometry.location.lat,
+          // long: data.results[0].geometry.location.lng
+          lat: 37,
+          long: 121
         }
         callback(coordinates);
       }

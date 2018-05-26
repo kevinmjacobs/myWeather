@@ -30,7 +30,7 @@ export default class City extends React.Component {
           forecasts: results
         })
       })
-      .then(() => console.log('forecasts after set state'))
+      .then(() => console.log('forecasts after set state', this.state.forecasts))
       .catch((err) => console.log('error fetching weather data', err));
   }
 

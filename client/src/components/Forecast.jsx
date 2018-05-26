@@ -5,7 +5,8 @@ const Forecast = (props) => {
   return (
     <tbody class="forecast">
       <tr class="date">{props.forecast.date}</tr>
-      <tr class="temp">{props.forecast.high}/{props.forecast.low}</tr>
+      <tr class="hi">H:{props.forecast.high}</tr>
+      <tr class="low">L:{props.forecast.low}</tr>
     </tbody>
   )
 }

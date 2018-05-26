@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "geocoder": "^0.2.3",
@@ -30,7 +31,8 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "request": "^2.87.0",
-    "sequelize": "^4.37.10"
+    "sequelize": "^4.37.10",
+    "style-loader": "^0.21.0"
   },
   "devDependencies": {
     "babel": "^6.23.0",

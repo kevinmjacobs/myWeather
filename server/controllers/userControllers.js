@@ -8,7 +8,7 @@ module.exports = {
     })
   }),
   post: ((req, res) => {
-    const username = req.body.username;
+    const username = req.body.params.user;
     user.post(username, (err, data) => {
       if (err) {
         console.log('POST users error:', err.message);

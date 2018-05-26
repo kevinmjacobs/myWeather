@@ -7,8 +7,6 @@ const getWeatherData = (lat, long, callback) => {
       console.log('Error handling API request', err.message);
       callback(err, null);
     }
-    console.log('API request successful,', res.statusCode);
-    console.log('API body', JSON.parse(body).daily.data);
     callback(null, JSON.parse(body).daily.data);
   })
 }

@@ -18,9 +18,11 @@ module.exports = {
       where: {username: username}
     })
     .spread((user, created) => {
+      console.log(user);
       if (created) {
         console.log('USER MODEL post user results');
       } else {
+        user.save
         console.log('USER MODEL user already exists');
       }
       callback(null, user);
