@@ -42,14 +42,11 @@ class App extends React.Component {
         user: user
       }
     })
-      .then((response) => {
-        console.log('received response from fetch weather');
-        // this.setState({
-        //   forecasts: results
-        // })
-        this.fetchCities();
-      })
-      .catch((err) => console.log('error fetching weather data', err));
+    .then((response) => {
+      console.log('received response from fetch weather');
+      this.fetchCities();
+    })
+    .catch((err) => console.log('error fetching weather data', err));
   }
 
   setUser(user) {
