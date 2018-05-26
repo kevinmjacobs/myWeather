@@ -1,9 +1,10 @@
-const user = require('../models/weatherModel');
+const weather = require('../models/weatherModel');
 
 module.exports = {
   post: ((req, res) => {
-    const location = req.body
-    user.post(location, (err, data) => {
+    const location = 'Los Angeles';
+    const user = 'kjacobs'
+    weather.post(user, location, (err, data) => {
       if (err) {
         console.log('POST weather error', err.message);
         res.send().status(404);

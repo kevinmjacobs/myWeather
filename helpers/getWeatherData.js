@@ -8,8 +8,8 @@ const getWeatherData = (lat, long, callback) => {
       callback(err, null);
     }
     console.log('API request successful,', res.statusCode);
-    console.log('API request body:', body);
-    callback(null, body);
+    console.log('API body', JSON.parse(body).daily.data);
+    callback(null, JSON.parse(body).daily.data);
   })
 }
 
