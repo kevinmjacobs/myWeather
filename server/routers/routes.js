@@ -6,6 +6,6 @@ router.get('/', (req, res) => { res.send() });
 router.get('/users', userController.get);
 router.post('/users', userController.post);
 // router.get('/weather', weatherController.get);
-// router.post('/weather', weatherController.post);
+router.post('/weather', weatherController.post);
 
 module.exports = router;
