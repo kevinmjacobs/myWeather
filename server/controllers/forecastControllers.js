@@ -2,7 +2,7 @@ const forecast = require('../models/forecastModel');
 
 module.exports = {
   get: ((req, res) => {
-    let location = 'Los Angeles, CA';
+    let location = req.query.location;
     forecast.get(location, (err, data) => {
       if (err) {
         console.log('GET forecast error', err.message);

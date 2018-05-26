@@ -41,17 +41,16 @@ class App extends React.Component {
       .then((response) => {
         console.log('received response from fetch cities');
         let results = response.data;
-        console.log('results from response',results);
+        console.log('results from response');
         this.setState({
           locations: results
         })
       })
-      .then(() => console.log('locations after set state,',this.state.locations))
+      .then(() => console.log('locations after set state'))
       .catch((err) => console.log('error fetching city data', err));
   }
 
   render() {
-    console.log('locations on render',this.state.locations);
     return (
       <div>
         <User setUser={this.setUser}/>

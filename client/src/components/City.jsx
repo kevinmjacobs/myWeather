@@ -8,7 +8,7 @@ export default class City extends React.Component {
     super(props);
     this.state = {
       location: props.location,
-      forecasts: ['Monday', 'Tuesday']
+      forecasts: []
     };
   }
 
@@ -26,12 +26,11 @@ export default class City extends React.Component {
       .then((response) => {
         console.log('received response from fetch weather');
         let results = response.data;
-        console.log('results from response',results);
         this.setState({
           forecasts: results
         })
       })
-      .then(() => console.log('forecasts after set state,',this.state.forecasts))
+      .then(() => console.log('forecasts after set state'))
       .catch((err) => console.log('error fetching weather data', err));
   }
 
@@ -41,8 +40,8 @@ export default class City extends React.Component {
         <td>
           {this.state.location}
         </td>
-        {this.state.forecasts.map((forecast, index) => (
-          <td><Forecast forecast={forecast} index={index} key={index} /></td>
+        {this.state.forecasts.map((forecast) => (
+          <td><Forecast forecast={forecast} /></td>
         ))}
       </div>
     )
