@@ -6,7 +6,7 @@ const sequelize = new Sequelize('weather','root','',{
 });
 
 const User = sequelize.define('user', {
-  username: { type: Sequelize.STRING, unique: true}
+  username: { type: Sequelize.STRING, unique: true, allowNull: false}
 })
 
 const City = sequelize.define('city', {
@@ -34,7 +34,7 @@ sequelize.sync()
   .then(() => {
     console.log('database synced');
     // User
-    //   .build( { username: 'thismax' } )
+    //   .build( { username: 'kjacobs' } )
     //   .save()
     //   .then(() => console.log('user generated on sync'))
     //   .catch((err) => console.log('error generating user',err.message));
