@@ -10,9 +10,19 @@ class App extends React.Component {
     super(props);
     this.state = {
       locations: ['Los Angeles', 'San Francisco', 'San Diego'],
-      user: 'Kevin',
+      user: 'kevinmjacobs',
       search: 'cities'
     };
+  }
+
+  componentDidMount() {
+    this.fetchWeather();
+  }
+
+  fetchWeather() {
+    fetch('http://localhost:1337/weather')
+      .then((response) => console.log(response))
+      .catch((err) => console.log('error fetching weather data', err));
   }
 
   render() {
