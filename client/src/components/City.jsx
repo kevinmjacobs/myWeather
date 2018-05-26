@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import Forecast from './Forecast.jsx'
 
@@ -11,9 +12,13 @@ export default class City extends React.Component {
     };
   }
 
-  weather() {
+  componentDidMount() {
+    this.fetchWeather();
+  }
+
+  fetchWeather() {
     let location = this.state.location;
-    axios.get('/forecast', {
+    axios.get('/forecasts', {
       params: {
         location: location
       }

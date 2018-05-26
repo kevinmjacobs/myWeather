@@ -1,50 +1,38 @@
 const { City, Forecast } = require('../../db/index.js');
 
-get: ((location, callback) => {
-    City.findOne({
-      where: { name: location },
+module.exports = {
+  get: ((location, callback) => {
+    Forecast.findAll({
       include: [
-        { model: User, required: true , where: { username: user }}
+        { 
+          model: City, 
+          required: true , 
+          where: { 
+            name: location
+          }
+        }
       ]
     })
     .then((results) => {
-      if (results) {
-        console.log('successfully got user city');
-        console.log(results);
-        let user_id = results.dataValues.id;
-        Forecast.findAll({
-          include: [
-            { 
-              model: City, 
-              required: true , 
-              where: { 
-                name: location, 
-                user_id: user_id 
-              }
-            },
-          ]
+      let prettyResults = [];
+      results.forEach((result) => {
+        prettyResults.push({
+          id: result.dataValues.id,
+          date: result.dataValues.date,
+          high: result.dataValues.high,
+          low: result.dataValues.low,
+          precipType: result.dataValues.precipType,
+          humidity: result.dataValues.humidity,
+          windSpeed: result.dataValues.windSpeed
         })
-        .then((results) => {
-          let prettyResults = [];
-          results.forEach((result) => {
-            prettyResults.push({
-              id: result.dataValues.id,
-              date: result.dataValues.date,
-              high: result.dataValues.high,
-              low: result.dataValues.low,
-              precipType: result.dataValues.precipType,
-              humidity: result.dataValues.humidity,
-              windSpeed: result.dataValues.windSpeed
-            })
-          })
-          callback(null, prettyResults);
-        })
-        .catch((err) => {
-          console.log('error querying forecasts,', err.message);
-          callback(err, null);
-        })
-      } else {
-        callback(null, null);
-      }
+      })
+      callback(null, prettyResults);
+    })
+    .catch((err) => {
+      console.log('error querying forecasts,', err.message);
+      callback(err, null);
     })
   })
+}
+
+

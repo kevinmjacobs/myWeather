@@ -39,7 +39,7 @@ class App extends React.Component {
       }
     })
       .then((response) => {
-        console.log('received response from fetch weather');
+        console.log('received response from fetch cities');
         let results = response.data;
         console.log('results from response',results);
         this.setState({
@@ -47,7 +47,7 @@ class App extends React.Component {
         })
       })
       .then(() => console.log('locations after set state,',this.state.locations))
-      .catch((err) => console.log('error fetching weather data', err));
+      .catch((err) => console.log('error fetching city data', err));
   }
 
   render() {
