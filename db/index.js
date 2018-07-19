@@ -1,46 +1,60 @@
-const Sequelize = require('sequelize');
+const mysql = require('mysql2');
 
-const sequelize = new Sequelize('weather','root','',{
+const connection = mysql.createConnection({
   host: 'localhost',
-  dialect: 'mysql'
-});
-
-const User = sequelize.define('user', {
-  username: { type: Sequelize.STRING, unique: true, allowNull: false}
+  user: 'root',
+  database: 'weather'
 })
 
-const City = sequelize.define('city', {
-  name: Sequelize.STRING,
-  zip: Sequelize.INTEGER
-});
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('connected')
+})
 
-const Forecast = sequelize.define('forecast', {
-  date:  Sequelize.DATE,
-  high:  Sequelize.DOUBLE,
-  low: Sequelize.DOUBLE,
-  precipType:  Sequelize.STRING,
-  precipProb: Sequelize.DOUBLE,
-  humidity: Sequelize.DOUBLE,
-  windSpeed: Sequelize.DOUBLE
-});
 
-User.hasMany(City, {foreignKey: 'user_id'});
-City.belongsTo(User, {foreignKey: 'user_id'});
+// const Sequelize = require('sequelize');
 
-City.hasMany(Forecast, {foreignKey: 'city_id'});
-Forecast.belongsTo(City, {foreignKey: 'city_id'});
+// const sequelize = new Sequelize('weather','root','',{
+//   host: 'localhost',
+//   dialect: 'mysql'
+// });
 
-sequelize.sync()
-  .then(() => {
-    console.log('database synced');
-    // User
-    //   .build( { username: 'kjacobs' } )
-    //   .save()
-    //   .then(() => console.log('user generated on sync'))
-    //   .catch((err) => console.log('error generating user',err.message));
-  });
+// const User = sequelize.define('user', {
+//   username: { type: Sequelize.STRING, unique: true, allowNull: false}
+// })
+
+// const City = sequelize.define('city', {
+//   name: Sequelize.STRING,
+//   zip: Sequelize.INTEGER
+// });
+
+// const Forecast = sequelize.define('forecast', {
+//   date:  Sequelize.DATE,
+//   high:  Sequelize.DOUBLE,
+//   low: Sequelize.DOUBLE,
+//   precipType:  Sequelize.STRING,
+//   precipProb: Sequelize.DOUBLE,
+//   humidity: Sequelize.DOUBLE,
+//   windSpeed: Sequelize.DOUBLE
+// });
+
+// User.hasMany(City, {foreignKey: 'user_id'});
+// City.belongsTo(User, {foreignKey: 'user_id'});
+
+// City.hasMany(Forecast, {foreignKey: 'city_id'});
+// Forecast.belongsTo(City, {foreignKey: 'city_id'});
+
+// sequelize.sync()
+//   .then(() => {
+//     console.log('database synced');
+//     // User
+//     //   .build( { username: 'kjacobs' } )
+//     //   .save()
+//     //   .then(() => console.log('user generated on sync'))
+//     //   .catch((err) => console.log('error generating user',err.message));
+//   });
 
   
-module.exports.User = User;
-module.exports.City = City;
-module.exports.Forecast = Forecast;
+// module.exports.User = User;
+// module.exports.City = City;
+// module.exports.Forecast = Forecast;
