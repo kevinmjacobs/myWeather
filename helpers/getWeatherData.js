@@ -1,5 +1,5 @@
 const request = require('request');
-const { API_KEY } = require('../darksky.config');
+const { API_KEY } = require('../config/darksky.config');
 
 const getWeatherData = (lat, long, callback) => {
   request(`https://api.darksky.net/forecast/${API_KEY}/${lat},${long}`, (err, res, body) => {
