@@ -1,0 +1,15 @@
+body, h1 {
+  font-family: "Verdana";
+  text-align: center;
+  color: #42b0f4;
+}
+
+table#weatherTable {
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+tbody.forecast {
+  margin-left:auto; 
+  margin-right:auto;
+}
